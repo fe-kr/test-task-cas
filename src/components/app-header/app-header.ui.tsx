@@ -2,6 +2,7 @@ import { Button, Flex } from "antd";
 import { useState } from "react";
 import { ModalForm } from "../modal-form";
 import { useDataTableContext, type DataTableItem } from "../data-table";
+import { SearchBar } from "../search-bar";
 
 export const AppHeader = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -17,7 +18,9 @@ export const AppHeader = () => {
   };
 
   return (
-    <Flex gap="middle" justify="space-between">
+    <Flex gap="middle" flex={1} justify="space-between">
+      <SearchBar />
+
       <Button type="primary" size="large" onClick={() => setIsModalOpen(true)}>
         Добавить
       </Button>
