@@ -1,5 +1,6 @@
 import { DatePicker, Form, Input, InputNumber, Modal } from "antd";
 import { type DataTableItem } from "../data-table";
+import { useEffect } from "react";
 
 type FormData = Omit<DataTableItem, "id">;
 
@@ -20,23 +21,26 @@ export const ModalForm = ({
 }: ModalFormProps) => {
   const [form] = Form.useForm();
 
+  useEffect(() => {
+    if (isOpen) form.setFieldsValue(initialValues);
+  }, [form, isOpen, initialValues]);
+
   return (
     <Modal
       open={isOpen}
       title={title}
       okText="Ок"
       cancelText="Отмена"
-      okButtonProps={{ autoFocus: true, htmlType: "submit" }}
+      okButtonProps={{ htmlType: "submit" }}
       onCancel={onCancel}
       destroyOnHidden
       modalRender={(dom) => (
         <Form
           layout="vertical"
           autoComplete="off"
-          form={form}
           name="modal-form"
+          form={form}
           initialValues={initialValues}
-          clearOnDestroy
           onFinish={onSubmit}
         >
           {dom}
@@ -47,15 +51,15 @@ export const ModalForm = ({
         <Input />
       </Form.Item>
 
-      <Form.Item<FormData> label="Дата" name="date" rules={rules.date}>
+      <Form.Item<FormData>
+        label="Дата"
+        name="date"
+        rules={rules.date}
+      >
         <DatePicker />
       </Form.Item>
 
-      <Form.Item<FormData>
-        name="count"
-        label="Количество"
-        rules={rules.count}
-      >
+      <Form.Item<FormData> name="count" label="Количество" rules={rules.count}>
         <InputNumber />
       </Form.Item>
     </Modal>

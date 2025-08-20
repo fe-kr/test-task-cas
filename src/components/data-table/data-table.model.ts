@@ -1,8 +1,5 @@
 import { createContext, useContext } from "react";
-import {
-  createProvider,
-  type DefaultContextValue,
-} from "../../utils/create-provider";
+import { type DefaultContextValue } from "../../utils/create-provider";
 
 export interface DataTableItem {
   id: string;
@@ -13,8 +10,6 @@ export interface DataTableItem {
 
 type DataTableContext = DefaultContextValue<Record<string, DataTableItem>>;
 
-const DataTableContext = createContext<DataTableContext>(null!);
+export const DataTableContext = createContext<DataTableContext>(null!);
 
 export const useDataTableContext = () => useContext(DataTableContext);
-
-export const DataTableProvider = createProvider(DataTableContext, {});
