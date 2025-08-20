@@ -1,12 +1,15 @@
 import { Layout } from "antd";
 import styles from "./app.module.css";
 import { DataTable, DataTableProvider } from "../components/data-table";
+import { AppHeader } from "../components/app-header";
 
 export const App = () => {
   return (
     <DataTableProvider>
       <Layout className={styles.container}>
-        <Layout.Header>Header</Layout.Header>
+        <Layout.Header className={styles.header}>
+          <AppHeader />
+        </Layout.Header>
         <Layout.Content>
           <DataTable />
         </Layout.Content>

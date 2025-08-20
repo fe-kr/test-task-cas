@@ -2,3 +2,8 @@
   min-height: 100vh;
   display: flex;
 }
+
+.header {
+  display: flex;
+  align-items: center;
+}
