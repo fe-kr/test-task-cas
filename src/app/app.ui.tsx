@@ -1,7 +1,8 @@
 import { Layout } from "antd";
 import styles from "./app.module.css";
-import { DataTable, DataTableProvider } from "../components/data-table";
+import { DataTableProvider } from "../components/data-table";
 import { AppHeader } from "../components/app-header";
+import { AppMain } from "../components/app-main";
 
 export const App = () => {
   return (
@@ -11,7 +12,7 @@ export const App = () => {
           <AppHeader />
         </Layout.Header>
         <Layout.Content>
-          <DataTable />
+          <AppMain />
         </Layout.Content>
         <Layout.Footer>Footer</Layout.Footer>
       </Layout>

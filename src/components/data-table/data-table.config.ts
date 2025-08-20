@@ -13,6 +13,7 @@ export const dataTableColumnsConfig = [
     dataIndex: "date",
     key: "date",
     sorter: (a, b) => +a.date - +b.date,
+    render: (value) => value.toString(),
   },
   {
     title: "Количество",
