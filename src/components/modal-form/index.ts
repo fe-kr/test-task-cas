@@ -1,1 +1,2 @@
-export { ModalForm } from "./modal-form.ui";
+export { ModalFormProvider } from "./modal-form.provider";
+export { useModalFormContext } from "./modal-form.context";

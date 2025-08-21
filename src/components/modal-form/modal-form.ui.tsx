@@ -1,38 +1,35 @@
-import { DatePicker, Form, Input, InputNumber, Modal } from "antd";
-import { type DataTableItem } from "../data-table";
-import { useEffect } from "react";
+import {
+  DatePicker,
+  Form,
+  Input,
+  InputNumber,
+  Modal,
+  type ModalProps,
+} from "antd";
+import type { DataTableItem } from "../data-table";
 
 type FormData = Omit<DataTableItem, "id">;
 
-interface ModalFormProps {
-  title: string;
-  isOpen?: boolean;
-  onSubmit: (value: FormData) => void;
-  onCancel: () => void;
+export interface ModalFormProps extends ModalProps {
+  onSubmit: (values: FormData) => void;
   initialValues?: FormData;
+  clearOnDestroy?: boolean;
 }
 
 export const ModalForm = ({
-  title,
-  isOpen,
   onSubmit,
   initialValues,
-  onCancel,
+  clearOnDestroy,
+  ...props
 }: ModalFormProps) => {
   const [form] = Form.useForm();
 
-  useEffect(() => {
-    if (isOpen) form.setFieldsValue(initialValues);
-  }, [form, isOpen, initialValues]);
-
   return (
     <Modal
-      open={isOpen}
-      title={title}
+      {...props}
       okText="Ок"
       cancelText="Отмена"
       okButtonProps={{ htmlType: "submit" }}
-      onCancel={onCancel}
       destroyOnHidden
       modalRender={(dom) => (
         <Form
@@ -41,33 +38,30 @@ export const ModalForm = ({
           name="modal-form"
           form={form}
           initialValues={initialValues}
+          clearOnDestroy={clearOnDestroy}
           onFinish={onSubmit}
         >
           {dom}
         </Form>
       )}
     >
-      <Form.Item<FormData> label="Имя" name="name" rules={rules.name}>
+      <Form.Item<FormData> label="Имя" name="name" rules={[requiredField]}>
         <Input />
       </Form.Item>
 
-      <Form.Item<FormData>
-        label="Дата"
-        name="date"
-        rules={rules.date}
-      >
+      <Form.Item<FormData> label="Дата" name="date" rules={[requiredField]}>
         <DatePicker />
       </Form.Item>
 
-      <Form.Item<FormData> name="count" label="Количество" rules={rules.count}>
-        <InputNumber />
+      <Form.Item<FormData>
+        name="count"
+        label="Количество"
+        rules={[requiredField]}
+      >
+        <InputNumber min={0} max={1000} />
       </Form.Item>
     </Modal>
   );
 };
 
-const rules = {
-  name: [{ required: true, message: "Имя не заполнено" }],
-  date: [{ required: true, message: "Дата не заполнена" }],
-  count: [{ required: true, message: "Количество не заполнено" }],
-};
+const requiredField = { required: true, message: "Обязательное поле" };

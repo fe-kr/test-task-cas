@@ -1,5 +1,4 @@
 import { createContext, useContext } from "react";
-import { type DefaultContextValue } from "../../utils/create-provider";
 
 export interface DataTableItem {
   id: string;
@@ -8,7 +7,16 @@ export interface DataTableItem {
   count: number;
 }
 
-type DataTableContext = DefaultContextValue<Record<string, DataTableItem>>;
+interface DataTableActions {
+  createItem: (data: Omit<DataTableItem, "id">) => void;
+  updateItem: (data: DataTableItem) => void;
+  deleteItem: (id: string) => void;
+}
+
+interface DataTableContext {
+  dataSource: DataTableItem[];
+  actions: DataTableActions;
+}
 
 export const DataTableContext = createContext<DataTableContext>(null!);
 

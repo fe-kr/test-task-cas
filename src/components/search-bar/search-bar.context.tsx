@@ -1,7 +1,9 @@
 import { createContext, useContext } from "react";
-import { type DefaultContextValue } from "../../utils/create-provider";
 
-type SearchBarContext = DefaultContextValue<string>;
+interface SearchBarContext {
+  searchValue: string;
+  setSearchValue: (value: string) => void;
+}
 
 export const SearchBarContext = createContext<SearchBarContext>(null!);
 

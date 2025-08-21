@@ -1,7 +1,10 @@
-import { type TableColumnType } from "antd";
-import type { DataTableItem } from "./data-table.model";
+import type { TableColumnType, TableProps } from "antd";
+import type { DataTableItem } from "./data-table.context";
+import { formatDate } from "../../utils/format";
+import { createElement } from "react";
+import { DataTableActions } from "./ui/data-table-actions";
 
-export const dataTableColumnsConfig = [
+export const dataTableColumns: TableColumnType<DataTableItem>[] = [
   {
     title: "Имя",
     dataIndex: "name",
@@ -15,12 +18,7 @@ export const dataTableColumnsConfig = [
     key: "date",
     ellipsis: true,
     sorter: (a, b) => +a.date - +b.date,
-    render: (value) =>
-      value.toLocaleString("ru-RU", {
-        year: "numeric",
-        month: "2-digit",
-        day: "2-digit",
-      }),
+    render: formatDate,
   },
   {
     title: "Количество",
@@ -29,4 +27,14 @@ export const dataTableColumnsConfig = [
     ellipsis: true,
     sorter: (a, b) => a.count - b.count,
   },
-] satisfies TableColumnType<DataTableItem>[];
+  {
+    title: "Действия",
+    key: "actions",
+    ellipsis: true,
+    render: (_, props) => createElement(DataTableActions, props),
+  },
+];
+
+export const dataTableLocale: TableProps["locale"] = {
+  emptyText: "Нет записей",
+};

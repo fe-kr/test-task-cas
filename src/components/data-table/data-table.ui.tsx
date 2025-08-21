@@ -1,18 +1,21 @@
-import { Table, type TableColumnType, type TableProps } from "antd";
-import { type DataTableItem } from "./data-table.model";
-import { dataTableColumnsConfig } from "./data-table.config";
+import { memo } from "react";
+import { Table, FloatButton, type TableProps } from "antd";
+import { type DataTableItem } from "./data-table.context";
+import { dataTableColumns, dataTableLocale } from "./data-table.config";
 
-interface DataTableProps extends TableProps<DataTableItem> {
-  actionColumn: TableColumnType<DataTableItem>;
-}
-
-export const DataTable = ({ actionColumn, ...props }: DataTableProps) => {
+export const DataTable = memo((props: TableProps<DataTableItem>) => {
   return (
-    <Table
-      {...props}
-      rowKey="id"
-      pagination={false}
-      columns={[...dataTableColumnsConfig, actionColumn]}
-    />
+    <>
+      <Table
+        {...props}
+        sticky
+        rowKey="id"
+        pagination={false}
+        columns={dataTableColumns}
+        locale={dataTableLocale}
+      />
+
+      <FloatButton.BackTop />
+    </>
   );
-};
+});

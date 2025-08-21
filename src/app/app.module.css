@@ -6,4 +6,18 @@
 .header {
   display: flex;
   align-items: center;
+  padding: 0.5rem 1rem;
+}
+
+.main {
+  display: flex;
+  background-color: #fff;
+}
+
+.footer {
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  justify-content: flex-end;
+  padding: 0.5rem 1rem;
 }

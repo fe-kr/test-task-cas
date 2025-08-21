@@ -1,17 +1,16 @@
 import { Input } from "antd";
-import { SearchOutlined } from '@ant-design/icons';
-import { useSearchBarContext } from "./search-bar.model";
+import { SearchOutlined } from "@ant-design/icons";
+import { useSearchBarContext } from "./search-bar.context";
 
 export const SearchBar = () => {
-  const [value, setValue] = useSearchBarContext();
+  const { searchValue, setSearchValue } = useSearchBarContext();
 
   return (
     <Input
-      size="large"
       placeholder="Поиск..."
       prefix={<SearchOutlined />}
-      value={value}
-      onChange={(e) => setValue(e.target.value)}
+      value={searchValue}
+      onChange={(e) => setSearchValue(e.target.value)}
     />
   );
 };

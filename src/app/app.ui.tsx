@@ -1,24 +1,22 @@
 import { Layout } from "antd";
+import { AppHeader } from "./ui/app-header";
+import { AppMain } from "./ui/app-main";
+import { AppFooter } from "./ui/app-footer";
+
 import styles from "./app.module.css";
-import { DataTableProvider } from "../components/data-table";
-import { AppHeader } from "../components/app-header";
-import { AppMain } from "../components/app-main";
-import { SearchBarProvider } from "../components/search-bar";
 
 export const App = () => {
   return (
-    <DataTableProvider>
-      <SearchBarProvider>
-        <Layout className={styles.container}>
-          <Layout.Header className={styles.header}>
-            <AppHeader />
-          </Layout.Header>
-          <Layout.Content>
-            <AppMain />
-          </Layout.Content>
-          <Layout.Footer>Footer</Layout.Footer>
-        </Layout>
-      </SearchBarProvider>
-    </DataTableProvider>
+    <Layout className={styles.container}>
+      <Layout.Header className={styles.header}>
+        <AppHeader />
+      </Layout.Header>
+      <Layout.Content className={styles.main}>
+        <AppMain />
+      </Layout.Content>
+      <Layout.Footer className={styles.footer}>
+        <AppFooter />
+      </Layout.Footer>
+    </Layout>
   );
 };
