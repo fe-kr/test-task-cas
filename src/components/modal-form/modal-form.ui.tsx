@@ -7,6 +7,7 @@ import {
   type ModalProps,
 } from "antd";
 import type { DataTableItem } from "../data-table";
+import { useEffect } from "react";
 
 type FormData = Omit<DataTableItem, "id">;
 
@@ -17,6 +18,7 @@ export interface ModalFormProps extends ModalProps {
 }
 
 export const ModalForm = ({
+  open,
   onSubmit,
   initialValues,
   clearOnDestroy,
@@ -24,9 +26,16 @@ export const ModalForm = ({
 }: ModalFormProps) => {
   const [form] = Form.useForm();
 
+  useEffect(() => {
+    if (open) {
+      form.setFieldsValue(initialValues);
+    }
+  }, [form, initialValues, open]);
+
   return (
     <Modal
       {...props}
+      open={open}
       okText="Ок"
       cancelText="Отмена"
       okButtonProps={{ htmlType: "submit" }}
